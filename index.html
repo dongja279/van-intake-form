@@ -10,8 +10,7 @@
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif}
     .wrap{max-width:720px;margin:0 auto;padding:20px}
     .banner{background:linear-gradient(180deg,#1f2937,#111827);border:1px solid #2a2a2a;border-radius:16px;padding:16px 14px;margin-bottom:14px}
-    .banner strong{display:block;font-size:15px;line-height:1.4}
-    .banner .small{color:var(--muted);font-size:12px;margin-top:8px}
+    .banner strong{display:block;font-size:15px;line-height:1.4}.banner .small{color:var(--muted);font-size:12px;margin-top:8px}
     .card{background:var(--card);border:1px solid #2a2a2a;border-radius:16px;padding:16px}
     .title{font-size:18px;margin:0 0 8px}
     .row{display:flex;gap:10px;flex-wrap:wrap}
@@ -62,7 +61,7 @@
       <div id="foodSection" class="section">
         <div class="hgroup">
           <h3>1) 식당정보</h3>
-          <label class="required">업체명</label><input id="r_name" type="text" placeholder="예) 안동뒷고기 강남점" />
+          <label class="required">업체명</label><input id="r_name" type="text" placeholder="예) 한국결제네트웍스 강남점" />
           <label>사업자등록번호</label><input id="r_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" />
           <div class="help">숫자만 입력해도 자동으로 하이픈을 붙입니다.</div>
           <label class="required">담당자명</label><input id="r_person" type="text" placeholder="예) 홍길동" />
@@ -131,65 +130,27 @@
     <!-- FAQ -->
     <div class="card" style="margin-top:12px">
       <h2 class="faq-title">자주 묻는 질문(FAQ)</h2>
-
       <div id="faq-food">
-        <details><summary>VAN 교체 전체 절차는?</summary>
-          <div class="answer">상담 → 수수료 시뮬레이션 → 견적·계약 → 설치/세팅 → 정산 계좌 변경 → 1개월 모니터링. 평균 3~7일.</div>
-        </details>
-        <details><summary>POS는 그대로 두고 VAN만 바꿀 수 있나?</summary>
-          <div class="answer">대부분 가능. POS사 연동 방식만 확인하면 된다. 필요 시 POS사와 직접 조율.</div>
-        </details>
-        <details><summary>위약금이 있으면 전환이 어렵나?</summary>
-          <div class="answer">아니다. 잔여기간·위약금 대비 수수료 절감효과를 산출해 손익분기점을 제시한다.</div>
-        </details>
-        <details><summary>수수료는 무엇으로 결정되나?</summary>
-          <div class="answer">전년도 매출/건수, 업종, 단말기 수, 간편결제 비중 등. 입력값으로 시뮬레이션한다.</div>
-        </details>
-        <details><summary>정산 주기와 입금 시점은?</summary>
-          <div class="answer">기본 D+2 또는 주간정산. 기존 주기 유지 가능.</div>
-        </details>
-        <details><summary>설치는 영업 중단 없이 가능한가?</summary>
-          <div class="answer">가능. 포스 1대 기준 30~60분. 피크 타임 회피 스케줄로 진행.</div>
-        </details>
-        <details><summary>간편결제 이관과 신규 채널 추가는?</summary>
-          <div class="answer">가능. 카카오/네이버/제로페이 등 이관·신규 개통 지원.</div>
-        </details>
-        <details><summary>추가 비용은?</summary>
-          <div class="answer">기본 설치·세팅 무상. 특수 장비나 공사는 별도 협의.</div>
-        </details>
-        <details><summary>A/S는 누가 담당하나?</summary>
-          <div class="answer">한국결제솔루션 지역 기사와 협력 POS 대리점이 365일 원격·현장 지원.</div>
-        </details>
+        <details><summary>VAN 교체 전체 절차는?</summary><div class="answer">상담 → 수수료 시뮬레이션 → 견적·계약 → 설치/세팅 → 정산 계좌 변경 → 1개월 모니터링. 평균 3~7일.</div></details>
+        <details><summary>POS는 그대로 두고 VAN만 바꿀 수 있나?</summary><div class="answer">대부분 가능. POS사 연동 방식만 확인하면 된다. 필요 시 POS사와 직접 조율.</div></details>
+        <details><summary>위약금이 있으면 전환이 어렵나?</summary><div class="answer">아니다. 잔여기간·위약금 대비 수수료 절감효과를 산출해 손익분기점을 제시한다.</div></details>
+        <details><summary>수수료는 무엇으로 결정되나?</summary><div class="answer">전년도 매출/건수, 업종, 단말기 수, 간편결제 비중 등. 입력값으로 시뮬레이션한다.</div></details>
+        <details><summary>정산 주기와 입금 시점은?</summary><div class="answer">기본 D+2 또는 주간정산. 기존 주기 유지 가능.</div></details>
+        <details><summary>설치는 영업 중단 없이 가능한가?</summary><div class="answer">가능. 포스 1대 기준 30~60분. 피크 타임 회피 스케줄로 진행.</div></details>
+        <details><summary>간편결제 이관과 신규 채널 추가는?</summary><div class="answer">가능. 카카오/네이버/제로페이 등 이관·신규 개통 지원.</div></details>
+        <details><summary>추가 비용은?</summary><div class="answer">기본 설치·세팅 무상. 특수 장비나 공사는 별도 협의.</div></details>
+        <details><summary>A/S는 누가 담당하나?</summary><div class="answer">한국결제솔루션 지역 기사와 협력 POS 대리점이 365일 원격·현장 지원.</div></details>
       </div>
-
       <div id="faq-hospital" class="hide">
-        <details><summary>병원 VAN 교체 절차는?</summary>
-          <div class="answer">현황 점검(EMR/수납흐름) → 수수료·정산 구조 설계 → EMR 연동 테스트 → 설치·검수 → 시나리오 점검 → 1개월 모니터링.</div>
-        </details>
-        <details><summary>EMR 연동 확인은?</summary>
-          <div class="answer">EMR 업체·연동 방식 확인 후, 필요 시 EMR사와 직접 협의해 키·설정 이관.</div>
-        </details>
-        <details><summary>보험/비급여·현금영수증 처리?</summary>
-          <div class="answer">동일하게 가능. 리더기·프린터 세팅을 EMR 워크플로우에 맞춰 구성.</div>
-        </details>
-        <details><summary>여러 창구의 리더기 대수 산정?</summary>
-          <div class="answer">동시 처리량과 피크 타임 기준 산정. 예비 1대 권장.</div>
-        </details>
-        <details><summary>정산·명세서 제공?</summary>
-          <div class="answer">D+2 또는 주간정산. 과/창구별 분리 리포트와 월별 명세서 이메일 자동 발송 가능.</div>
-        </details>
-        <details><summary>EMR 계약·데이터 영향?</summary>
-          <div class="answer">없음. VAN만 변경. EMR 설정값 일부 변경 필요 가능.</div>
-        </details>
-        <details><summary>보안과 환자정보 보호?</summary>
-          <div class="answer">카드정보는 단말에서 암호화. 환자정보는 EMR에만 저장. PCI-DSS 준수.</div>
-        </details>
-        <details><summary>위약금 있어도 교체?</summary>
-          <div class="answer">가능. 절감액 분석 후 최적 전환 시점 제안.</div>
-        </details>
-        <details><summary>유지보수·장애 대응?</summary>
-          <div class="answer">365일 콜센터·지역 엔지니어 지원. 리더기 교체 SLA 명시 가능.</div>
-        </details>
+        <details><summary>병원 VAN 교체 절차는?</summary><div class="answer">현황 점검(EMR/수납흐름) → 수수료·정산 구조 설계 → EMR 연동 테스트 → 설치·검수 → 시나리오 점검 → 1개월 모니터링.</div></details>
+        <details><summary>EMR 연동 확인은?</summary><div class="answer">EMR 업체·연동 방식 확인 후, 필요 시 EMR사와 직접 협의해 키·설정 이관.</div></details>
+        <details><summary>보험/비급여·현금영수증 처리?</summary><div class="answer">동일하게 가능. 리더기·프린터 세팅을 EMR 워크플로우에 맞춰 구성.</div></details>
+        <details><summary>여러 창구의 리더기 대수 산정?</summary><div class="answer">동시 처리량과 피크 타임 기준 산정. 예비 1대 권장.</div></details>
+        <details><summary>정산·명세서 제공?</summary><div class="answer">D+2 또는 주간정산. 과/창구별 분리 리포트와 월별 명세서 이메일 자동 발송 가능.</div></details>
+        <details><summary>EMR 계약·데이터 영향?</summary><div class="answer">없음. VAN만 변경. EMR 설정값 일부 변경 필요 가능.</div></details>
+        <details><summary>보안과 환자정보 보호?</summary><div class="answer">카드정보는 단말에서 암호화. 환자정보는 EMR에만 저장. PCI-DSS 준수.</div></details>
+        <details><summary>위약금 있어도 교체?</summary><div class="answer">가능. 절감액 분석 후 최적 전환 시점 제안.</div></details>
+        <details><summary>유지보수·장애 대응?</summary><div class="answer">365일 콜센터·지역 엔지니어 지원. 리더기 교체 SLA 명시 가능.</div></details>
       </div>
     </div>
 
@@ -198,14 +159,12 @@
 
   <script>
     // === 설정 ===
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxrnHKrybKHFU-Gvni3GYt5-54WDi9Wzajh3BxzICoGiA7Kf9fULvn3mG53xJyoABPj9w/exec";
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwc9zquWQv5d7SuLydvYb_iyLlUxarCryCTcYJGKbyAzgpICG3O--UlX4dYPVopvA4lfg/exec";
 
-    // === 유틸: 숫자만 ===
+    // === 유틸 ===
     const onlyDigits = s => (s||"").replace(/\D+/g,"");
-
-    // === 자동 하이픈 포맷터 ===
     function formatPhone(raw){
-      const d = onlyDigits(raw).slice(0,11); // 최대 11자리
+      const d = onlyDigits(raw).slice(0,11);
       if(d.startsWith("02")){
         if(d.length<=2) return d;
         if(d.length<=5) return d.replace(/(\d{2})(\d+)/,"$1-$2");
@@ -218,7 +177,7 @@
       }
     }
     function formatBizNo(raw){
-      const d = onlyDigits(raw).slice(0,10); // 10자리
+      const d = onlyDigits(raw).slice(0,10);
       if(d.length<=3) return d;
       if(d.length<=5) return d.replace(/(\d{3})(\d{0,2})/,"$1-$2");
       return d.replace(/(\d{3})(\d{2})(\d{0,5})/,"$1-$2-$3");
@@ -232,8 +191,39 @@
     const btnHospital = document.getElementById('btn-hospital');
     const faqFood = document.getElementById('faq-food');
     const faqHospital = document.getElementById('faq-hospital');
-    const resultEl=document.getElementById('result');
-    const btn=document.getElementById('btnSubmit');
+    const resultEl = document.getElementById('result');
+    const btn = document.getElementById('btnSubmit');
+
+    // 입력 요소
+    const r_name = document.getElementById('r_name');
+    const r_bizno = document.getElementById('r_bizno');
+    const r_person = document.getElementById('r_person');
+    const r_phone = document.getElementById('r_phone');
+    const r_pos_name = document.getElementById('r_pos_name');
+    const r_contract_s = document.getElementById('r_contract_s');
+    const r_contract_e = document.getElementById('r_contract_e');
+    const r_penalty = document.getElementById('r_penalty');
+    const r_poscnt = document.getElementById('r_poscnt');
+    const r_sales_amt = document.getElementById('r_sales_amt');
+    const r_sales_cnt = document.getElementById('r_sales_cnt');
+
+    const h_name = document.getElementById('h_name');
+    const h_bizno = document.getElementById('h_bizno');
+    const h_person = document.getElementById('h_person');
+    const h_phone = document.getElementById('h_phone');
+    const h_emr_name = document.getElementById('h_emr_name');
+    const h_emr_person = document.getElementById('h_emr_person');
+    const h_emr_phone = document.getElementById('h_emr_phone');
+    const h_emr_switch = document.getElementById('h_emr_switch');
+    const h_van_name = document.getElementById('h_van_name');
+    const h_van_contract_s = document.getElementById('h_van_contract_s');
+    const h_van_contract_e = document.getElementById('h_van_contract_e');
+    const h_van_penalty = document.getElementById('h_van_penalty');
+    const h_reader_count = document.getElementById('h_reader_count');
+    const h_under_cnt = document.getElementById('h_under_cnt');
+    const h_under_amt = document.getElementById('h_under_amt');
+    const h_over_cnt = document.getElementById('h_over_cnt');
+    const h_over_amt = document.getElementById('h_over_amt');
 
     // 업종 토글
     function setType(t){
@@ -250,68 +240,33 @@
     btnFood.onclick=()=>setType('식당');
     btnHospital.onclick=()=>setType('병원');
 
-    // 자동 하이픈 바인딩
-    // 식당
+    // 자동 하이픈
     r_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
     r_bizno.addEventListener('input', e=>{ e.target.value = formatBizNo(e.target.value); });
-    // 병원
     h_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
     h_bizno.addEventListener('input', e=>{ e.target.value = formatBizNo(e.target.value); });
     h_emr_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
 
-    // 데이터 수집
+    // 수집
     function collect(){
       const type=bizTypeEl.value;
       const payload={업종:type, 제출시각:new Date().toISOString()};
       if(type==='식당'){
-        payload.식당정보={
-          업체명: r_name.value.trim(),
-          사업자등록번호: r_bizno.value.trim(),
-          담당자명: r_person.value.trim(),
-          연락처: r_phone.value.trim()
-        };
-        payload.기존포스정보={
-          프로그램명: r_pos_name.value.trim(),
-          계약시작: r_contract_s.value,
-          계약종료: r_contract_e.value,
-          위약금_천원: Number(r_penalty.value||0)
-        };
-        payload.단말기정보={ 포스기대수: Number(r_poscnt.value||0) };
-        payload.전년도카드매출={
-          총액_백만원: Number(r_sales_amt.value||0),
-          건수_건: Number(r_sales_cnt.value||0)
-        };
+        payload.식당정보={업체명:r_name.value.trim(),사업자등록번호:r_bizno.value.trim(),담당자명:r_person.value.trim(),연락처:r_phone.value.trim()};
+        payload.기존포스정보={프로그램명:r_pos_name.value.trim(),계약시작:r_contract_s.value,계약종료:r_contract_e.value,위약금_천원:Number(r_penalty.value||0)};
+        payload.단말기정보={포스기대수:Number(r_poscnt.value||0)};
+        payload.전년도카드매출={총액_백만원:Number(r_sales_amt.value||0),건수_건:Number(r_sales_cnt.value||0)};
       }else{
-        payload.병원정보={
-          업체명: h_name.value.trim(),
-          사업자등록번호: h_bizno.value.trim(),
-          담당자명: h_person.value.trim(),
-          연락처: h_phone.value.trim()
-        };
-        payload.EMR_업체정보={
-          업체명: h_emr_name.value.trim(),
-          담당자명: h_emr_person.value.trim(),
-          연락처: h_emr_phone.value.trim(),
-          변경가능여부: h_emr_switch.value
-        };
-        payload.VAN_업체정보={
-          업체명: h_van_name.value.trim(),
-          계약시작: h_van_contract_s.value,
-          계약종료: h_van_contract_e.value,
-          위약금_천원: Number(h_van_penalty.value||0)
-        };
-        payload.리더기정보={ 대수: Number(h_reader_count.value||0) };
-        payload.전년도카드매출={
-          백만원이하_건수: Number(h_under_cnt.value||0),
-          백만원이하_합계_백만: Number(h_under_amt.value||0),
-          백만원이상_건수: Number(h_over_cnt.value||0),
-          백만원이상_합계_백만: Number(h_over_amt.value||0)
-        };
+        payload.병원정보={업체명:h_name.value.trim(),사업자등록번호:h_bizno.value.trim(),담당자명:h_person.value.trim(),연락처:h_phone.value.trim()};
+        payload.EMR_업체정보={업체명:h_emr_name.value.trim(),담당자명:h_emr_person.value.trim(),연락처:h_emr_phone.value.trim(),변경가능여부:h_emr_switch.value};
+        payload.VAN_업체정보={업체명:h_van_name.value.trim(),계약시작:h_van_contract_s.value,계약종료:h_van_contract_e.value,위약금_천원:Number(h_van_penalty.value||0)};
+        payload.리더기정보={대수:Number(h_reader_count.value||0)};
+        payload.전년도카드매출={백만원이하_건수:Number(h_under_cnt.value||0),백만원이하_합계_백만:Number(h_under_amt.value||0),백만원이상_건수:Number(h_over_cnt.value||0),백만원이상_합계_백만:Number(h_over_amt.value||0)};
       }
       return payload;
     }
 
-    // 검증(필수만)
+    // 검증
     function validate(d){
       function mark(el, bad){ el.classList.toggle('error', !!bad); }
       if(d.업종==='식당'){
@@ -333,29 +288,28 @@
     }
 
     // 제출
-    const submit = async ()=>{
+    const resetForm = ()=>{
+      document.querySelectorAll('input').forEach(i=>i.value='');
+      const sel = document.getElementById('h_emr_switch'); if (sel) sel.value='';
+      setType('식당');
+    };
+
+    document.getElementById('btnSubmit').onclick = async ()=>{
       const data=collect();
       const err=validate(data);
       if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
       btn.disabled=true; resultEl.innerHTML='<span class="spinner"></span>제출 중...';
       try{
-        const res = await fetch(WEB_APP_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)});
-        const json = await res.json();
-        if(json && json.result==='success'){
-          resultEl.innerHTML='<span class="ok">제출 완료. 1주일 내 연락드리겠습니다.</span>';
-          btn.disabled=false; return;
-        }
-      }catch(_){}
-      try{
+        // no-cors: CORS 무시하고 서버 기록. 응답 판독은 생략.
         await fetch(WEB_APP_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(data)});
-        resultEl.innerHTML='<span class="ok">제출 완료(확인). 시트에서 기록 여부 확인하세요.</span>';
+        resultEl.innerHTML='<span class="ok">제출 완료. 시트에서 기록을 확인하세요.</span>';
+        resetForm();
       }catch(e){
         resultEl.innerHTML='<span class="err">전송 실패. 네트워크를 확인하세요.</span>';
       }finally{
         btn.disabled=false;
       }
     };
-    btn.onclick=submit;
 
     // 초기
     setType('식당');

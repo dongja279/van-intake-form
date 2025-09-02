@@ -12,7 +12,8 @@
     .banner{background:linear-gradient(180deg,#1f2937,#111827);border:1px solid #2a2a2a;border-radius:16px;padding:16px 14px;margin-bottom:14px}
     .banner strong{display:block;font-size:15px;line-height:1.4}.banner .small{color:var(--muted);font-size:12px;margin-top:8px}
     .card{background:var(--card);border:1px solid #2a2a2a;border-radius:16px;padding:16px}
-    .title{font-size:18px;margin:0 0 8px}.row{display:flex;gap:10px;flex-wrap:wrap}
+    .title{font-size:18px;margin:0 0 8px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
     label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
     label.required::after{content:" *";color:var(--danger)}
     input,select,button,textarea{width:100%;padding:14px 12px;border-radius:12px;border:1px solid #2b2b2b;background:#0f0f10;color:var(--ink);font-size:15px;outline:none}
@@ -20,31 +21,37 @@
     input.error{border-color:var(--danger)}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .pill{display:inline-flex;gap:6px;background:#0f0f10;border:1px solid #2b2b2b;padding:6px 10px;border-radius:999px;align-items:center}
-    .section{margin-top:8px}.hide{display:none}.actions{display:flex;gap:10px;margin-top:16px}
+    .section{margin-top:8px}.hide{display:none}
+    .actions{display:flex;gap:10px;margin-top:16px}
     .primary{background:var(--accent);border:1px solid #348fe3;font-weight:600}
     .help{font-size:12px;color:#8a8a8a;margin-top:6px}.ok{color:#c7ffea}.err{color:#ffb6b6}
     footer{margin:28px 0 8px;color:#7b7b7b;font-size:12px;text-align:center}
-    .hgroup{margin-top:18px;border-top:1px dashed #2a2a2a;padding-top:12px}.hgroup h3{margin:0 0 6px;font-size:15px}
-    .faq-title{margin:18px 0 8px;font-size:16px} details{border:1px solid #2b2b2b;border-radius:12px;background:#0f0f10;margin:8px 0}
-    summary{cursor:pointer;padding:12px 14px;font-size:14px;color:#e6e6e6;list-style:none} details[open] summary{border-bottom:1px solid #232323}
-    details .answer{padding:12px 14px;color:#bdbdbd;font-size:13px;line-height:1.55} summary::-webkit-details-marker{display:none}
+    .hgroup{margin-top:18px;border-top:1px dashed #2a2a2a;padding-top:12px}
+    .hgroup h3{margin:0 0 6px;font-size:15px}
+    .faq-title{margin:18px 0 8px;font-size:16px}
+    details{border:1px solid #2b2b2b;border-radius:12px;background:#0f0f10;margin:8px 0}
+    summary{cursor:pointer;padding:12px 14px;font-size:14px;color:#e6e6e6;list-style:none}
+    details[open] summary{border-bottom:1px solid #232323}
+    details .answer{padding:12px 14px;color:#bdbdbd;font-size:13px;line-height:1.55}
+    summary::-webkit-details-marker{display:none}
     .spinner{display:inline-block;width:16px;height:16px;border:2px solid #9ecbff;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;vertical-align:middle;margin-right:6px}
     @keyframes spin{to{transform:rotate(360deg)}}
 
-    /* === Chat Widget === */
+    /* Chat widget */
     .chat-card{background:var(--card);border:1px solid #2a2a2a;border-radius:16px;padding:16px;margin-top:12px}
     .chat-head{display:flex;justify-content:space-between;align-items:center}
     .chat-head h2{font-size:16px;margin:0}
     .chat-toggle{background:#0f0f10;border:1px solid #2b2b2b;border-radius:10px;padding:8px 10px;font-size:13px}
     .chat-wrap{margin-top:10px}
     .chat-log{height:280px;overflow:auto;border:1px solid #2b2b2b;border-radius:12px;padding:12px;background:#0f0f10}
-    .msg{margin:8px 0;line-height:1.5}
-    .msg.me{color:#e6f3ff}
-    .msg.ai{color:#d6d6d6}
+    .msg{margin:8px 0;line-height:1.5}.msg.me{color:#e6f3ff}.msg.ai{color:#d6d6d6}
     .chat-row{display:flex;gap:8px;margin-top:10px}
-    .chat-input{flex:1;resize:none;height:50px}
+    .chat-input{flex:1;resize:none;height:80px} /* 화살표/리사이즈 제거 */
     .chat-send{min-width:88px}
-    .hint{font-size:12px;color:#8a8a8a;margin-top:6px}
+    /* 숫자 스피너 제거 */
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0 }
+    input[type=number]{ -moz-appearance:textfield }
   </style>
 </head>
 <body>
@@ -163,7 +170,7 @@
     <div class="chat-card">
       <div class="chat-head">
         <h2>전문가 AI 채팅(베타)</h2>
-        <button id="chatToggle" class="chat-toggle" type="button">열기/닫기</button>
+        <button id="chatToggle" class="chat-toggle" type="button">닫기</button>
       </div>
       <div id="chatWrap" class="chat-wrap">
         <div id="chatLog" class="chat-log" aria-live="polite">
@@ -173,7 +180,7 @@
           <textarea id="chatInput" class="chat-input" placeholder="예) 위약금이 있어도 전환 가능한가요?"></textarea>
           <button id="chatSend" class="primary chat-send" type="button">보내기</button>
         </div>
-        <div class="hint">주의: 전화번호·사업자번호 등 개인정보는 채팅에 입력하지 마세요. 제출은 상단 폼 이용.</div>
+        <div class="help">주의: 전화번호·사업자번호 등 개인정보는 채팅에 입력하지 마세요. 제출은 상단 폼 이용.</div>
       </div>
     </div>
 
@@ -181,9 +188,10 @@
   </div>
 
   <script>
-    // === 제출(구글 스크립트) ===
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxrnHKrybKHFU-Gvni3GYt5-54WDi9Wzajh3BxzICoGiA7Kf9fULvn3mG53xJyoABPj9w/exec";
+    /* === 설정 === */
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwc9zquWQv5d7SuLydvYb_iyLlUxarCryCTcYJGKbyAzgpICG3O--UlX4dYPVopvA4lfg/exec";
 
+    /* === 유틸 === */
     const onlyDigits = s => (s||"").replace(/\D+/g,"");
     function formatPhone(raw){
       const d = onlyDigits(raw).slice(0,11);
@@ -205,6 +213,7 @@
       return d.replace(/(\d{3})(\d{2})(\d{0,5})/,"$1-$2-$3");
     }
 
+    /* === 요소 === */
     const bizTypeEl = document.getElementById('bizType');
     const foodSection = document.getElementById('foodSection');
     const hospitalSection = document.getElementById('hospitalSection');
@@ -215,6 +224,7 @@
     const resultEl = document.getElementById('result');
     const btn = document.getElementById('btnSubmit');
 
+    // 식당 입력 요소
     const r_name = document.getElementById('r_name');
     const r_bizno = document.getElementById('r_bizno');
     const r_person = document.getElementById('r_person');
@@ -227,6 +237,7 @@
     const r_sales_amt = document.getElementById('r_sales_amt');
     const r_sales_cnt = document.getElementById('r_sales_cnt');
 
+    // 병원 입력 요소
     const h_name = document.getElementById('h_name');
     const h_bizno = document.getElementById('h_bizno');
     const h_person = document.getElementById('h_person');
@@ -245,6 +256,7 @@
     const h_over_cnt = document.getElementById('h_over_cnt');
     const h_over_amt = document.getElementById('h_over_amt');
 
+    /* === 업종 토글 === */
     function setType(t){
       bizTypeEl.value=t;
       const isFood = t==='식당';
@@ -259,12 +271,14 @@
     btnFood.onclick=()=>setType('식당');
     btnHospital.onclick=()=>setType('병원');
 
+    /* === 자동 하이픈 === */
     r_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
     r_bizno.addEventListener('input', e=>{ e.target.value = formatBizNo(e.target.value); });
     h_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
     h_bizno.addEventListener('input', e=>{ e.target.value = formatBizNo(e.target.value); });
     h_emr_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
 
+    /* === 데이터 수집 === */
     function collect(){
       const type=bizTypeEl.value;
       const payload={업종:type, 제출시각:new Date().toISOString()};
@@ -278,10 +292,12 @@
         payload.EMR_업체정보={업체명:h_emr_name.value.trim(),담당자명:h_emr_person.value.trim(),연락처:h_emr_phone.value.trim(),변경가능여부:h_emr_switch.value};
         payload.VAN_업체정보={업체명:h_van_name.value.trim(),계약시작:h_van_contract_s.value,계약종료:h_van_contract_e.value,위약금_천원:Number(h_van_penalty.value||0)};
         payload.리더기정보={대수:Number(h_reader_count.value||0)};
-        payload.전년도카드매출={백만원이하_건수:Number(h_under_cnt.value||0),백만원이하_합계_백만:Number(h_under_amt.value||0),백만원이상_건수:Number(h_over_cnt.value||0),백만원이상_합계_백만:Number(h_over_amt.value||0)};
+        payload.전년도카드매출={백만원이하_건수:Number(h_under_cnt.value||0),백만원이하_합계_백만:Number(h_under_amt.value||0),백만원이상_건수(Number(h_over_cnt.value||0)),백만원이상_합계_백만(Number(h_over_amt.value||0))};
       }
       return payload;
     }
+
+    /* === 검증 === */
     function validate(d){
       function mark(el, bad){ el.classList.toggle('error', !!bad); }
       if(d.업종==='식당'){
@@ -297,6 +313,8 @@
       }
       return '';
     }
+
+    /* === 제출 === */
     const resetForm = ()=>{
       document.querySelectorAll('input').forEach(i=>i.value='');
       const sel = document.getElementById('h_emr_switch'); if (sel) sel.value='';
@@ -316,71 +334,49 @@
       }finally{ btn.disabled=false; }
     };
 
-    // === 전문가 AI 채팅 ===
-    const chatWrap = document.getElementById('chatWrap');
-    const chatToggle = document.getElementById('chatToggle');
-    const chatLog = document.getElementById('chatLog');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
+    /* === 채팅 === */
+    const chatWrap=document.getElementById('chatWrap');
+    const chatToggle=document.getElementById('chatToggle');
+    const chatLog=document.getElementById('chatLog');
+    const chatInput=document.getElementById('chatInput');
+    const chatSend=document.getElementById('chatSend');
 
-    chatToggle.onclick = () => chatWrap.classList.toggle('hide');
+    chatToggle.onclick=()=>{ chatWrap.classList.toggle('hide'); chatToggle.textContent = chatWrap.classList.contains('hide')?'열기':'닫기'; };
 
-    const history = JSON.parse(localStorage.getItem('vanpos_chat')||'[]'); // [{role, content}]
-    const render = () => {
-      chatLog.innerHTML = '';
-      const init = document.createElement('div');
-      init.className = 'msg ai';
-      init.textContent = '안녕하세요. VAN/포스 전환 관련해서 무엇이든 물어보세요. 개인정보는 입력폼으로만 보내 주세요.';
-      chatLog.appendChild(init);
-      history.forEach(m=>{
-        const d = document.createElement('div');
-        d.className = 'msg ' + (m.role==='user'?'me':'ai');
-        d.textContent = m.content;
-        chatLog.appendChild(d);
+    const historyMsgs = JSON.parse(localStorage.getItem('vanpos_chat')||'[]');
+    function render(){
+      chatLog.innerHTML='<div class="msg ai">안녕하세요. VAN/포스 전환 관련해서 무엇이든 물어보세요. 개인정보는 입력폼으로만 보내 주세요.</div>';
+      historyMsgs.forEach(m=>{
+        const d=document.createElement('div'); d.className='msg '+(m.role==='user'?'me':'ai'); d.textContent=m.content; chatLog.appendChild(d);
       });
-      chatLog.scrollTop = chatLog.scrollHeight;
-    };
+      chatLog.scrollTop=chatLog.scrollHeight;
+    }
     render();
 
-    const redact = s => s
-      .replace(/\d{3}-?\d{2}-?\d{5}/g, "[사업자번호]")
-      .replace(/\d{2,4}-?\d{3,4}-?\d{4}/g, "[전화번호]");
+    const redact = s => s.replace(/\d{3}-?\d{2}-?\d{5}/g,"[사업자번호]").replace(/\d{2,4}-?\d{3,4}-?\d{4}/g,"[전화번호]");
 
     async function ask(){
-      const q = chatInput.value.trim();
-      if(!q) return;
-      const safeQ = redact(q);
-      history.push({role:'user', content:safeQ});
-      render(); chatInput.value='';
+      const q=chatInput.value.trim(); if(!q) return;
+      const safeQ=redact(q);
+      historyMsgs.push({role:'user',content:safeQ}); render(); chatInput.value='';
 
-      const typing = document.createElement('div');
-      typing.className = 'msg ai';
-      typing.innerHTML = '<span class="spinner"></span>답변 작성 중...';
-      chatLog.appendChild(typing);
-      chatLog.scrollTop = chatLog.scrollHeight;
+      const typing=document.createElement('div'); typing.className='msg ai'; typing.innerHTML='<span class="spinner"></span>답변 작성 중...'; chatLog.appendChild(typing); chatLog.scrollTop=chatLog.scrollHeight;
 
       try{
-        const res = await fetch('/api/chat', {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({ messages: history })
-        });
-        const json = await res.json();
-        const reply = json.reply || '오류가 발생했습니다.';
-        history.push({role:'assistant', content: reply});
-        localStorage.setItem('vanpos_chat', JSON.stringify(history));
+        const r=await fetch('/api/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:historyMsgs})});
+        if(r.status===404){ throw new Error('서버 없음: /api/chat 404'); }
+        const j=await r.json();
+        const reply=j.reply||'오류가 발생했습니다.';
+        historyMsgs.push({role:'assistant',content:reply});
+        localStorage.setItem('vanpos_chat',JSON.stringify(historyMsgs));
       }catch(e){
-        history.push({role:'assistant', content:'네트워크 오류. 잠시 후 다시 시도해 주세요.'});
-      }finally{
-        render();
-      }
+        historyMsgs.push({role:'assistant',content:'[오류] 채팅 서버 연결 실패. /api/chat 배포와 키 설정 확인.'});
+      }finally{ render(); }
     }
-    chatSend.onclick = ask;
-    chatInput.addEventListener('keydown', e=>{
-      if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); ask(); }
-    });
+    chatSend.onclick=ask;
+    chatInput.addEventListener('keydown',e=>{ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); ask(); }});
 
-    // 초기
+    /* 초기 */
     setType('식당');
   </script>
 </body>

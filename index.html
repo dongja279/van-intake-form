@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>VAN 교체 견적 요청</title>
   <style>
-    :root{--bg:#0b0b0b;--card:#151515;--ink:#f5f5f5;--muted:#b9b9b9;--accent:#3aa0ff;--ok:#18c37e;--err:#ff5a5a}
+    :root{--bg:#0b0b0b;--card:#151515;--ink:#f5f5f5;--muted:#b9b9b9;--accent:#3aa0ff}
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif}
     .wrap{max-width:720px;margin:0 auto;padding:20px}
@@ -17,21 +17,19 @@
     .row{display:flex;gap:10px;flex-wrap:wrap}
     label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
     input,select,button,textarea{width:100%;padding:14px 12px;border-radius:12px;border:1px solid #2b2b2b;background:#0f0f10;color:var(--ink);font-size:15px;outline:none}
-    input::placeholder,textarea::placeholder{color:#8d8d8d}
-    input[type="date"]{padding:12px}
+    input::placeholder{color:#8d8d8d}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-    .help{font-size:12px;color:#8a8a8a;margin-top:6px}
     .pill{display:inline-flex;gap:6px;background:#0f0f10;border:1px solid #2b2b2b;padding:6px 10px;border-radius:999px;align-items:center}
     .section{margin-top:8px}
     .hide{display:none}
     .actions{display:flex;gap:10px;margin-top:16px}
     .primary{background:var(--accent);border:1px solid #348fe3;font-weight:600}
     .ghost{background:#0f0f10;border:1px dashed #3a3a3a}
-    .ok{color:#c7ffea}
-    .err{color:#ffb6b6}
-    .preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
-    .chip{font-size:12px;border:1px solid #2b2b2b;background:#0f0f10;border-radius:999px;padding:6px 10px}
+    .help{font-size:12px;color:#8a8a8a;margin-top:6px}
+    .ok{color:#c7ffea}.err{color:#ffb6b6}
     footer{margin:28px 0 8px;color:#7b7b7b;font-size:12px;text-align:center}
+    .hgroup{margin-top:18px;border-top:1px dashed #2a2a2a;padding-top:12px}
+    .hgroup h3{margin:0 0 6px;font-size:15px}
   </style>
 </head>
 <body>
@@ -52,14 +50,14 @@
       </div>
       <input type="hidden" id="bizType" value="식당"/>
 
-      <!-- 식당 섹션 -->
+      <!-- 식당 섹션(기존 유지) -->
       <div id="foodSection" class="section">
         <label>업체명</label>
         <input id="f_name" type="text" placeholder="예) 한국결제네트웍스 강남점" required />
         <label>담당자명</label>
         <input id="f_person" type="text" placeholder="예) 홍길동" />
         <label>연락처</label>
-        <input id="f_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\d{3,4}-\d{4}$" />
+        <input id="f_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
         <div class="help">형식 예: 010-1234-5678</div>
 
         <label>기존 사용 중인 포스프로그램은?</label>
@@ -72,9 +70,7 @@
         </div>
 
         <label>위약금(익월 말 기준)</label>
-        <div class="row">
-          <input id="f_penalty" type="number" min="0" step="1" placeholder="천원 단위 예) 300" />
-        </div>
+        <input id="f_penalty" type="number" min="0" step="1" placeholder="천원 단위 예) 300" />
         <div class="help">단위: 천원</div>
 
         <label>포스기 대수(메인포스, 오더포스 등)</label>
@@ -88,18 +84,80 @@
         <input id="f_sales_cnt" type="number" min="0" step="1" placeholder="예) 12450" />
       </div>
 
-      <!-- 병원 섹션 -->
+      <!-- 병원 섹션(신규 구성) -->
       <div id="hospitalSection" class="section hide">
-        <label>질문지 이미지 첨부</label>
-        <input id="h_images" type="file" accept="image/*" multiple />
-        <div id="imgPreview" class="preview"></div>
-        <div class="help">이미지 1~5장 권장. JPG/PNG.</div>
+        <!-- 1. 병원정보 -->
+        <div class="hgroup">
+          <h3>1) 병원정보</h3>
+          <label>업체명</label>
+          <input id="h_name" type="text" placeholder="예) 한국의원" />
+          <label>사업자 등록 번호</label>
+          <input id="h_bizno" type="text" inputmode="numeric" placeholder="예) 123-45-67890" pattern="^\\d{3}-\\d{2}-\\d{5}$" />
+          <div class="help">형식: 123-45-67890</div>
+          <label>담당자명</label>
+          <input id="h_person" type="text" placeholder="예) 김원장" />
+          <label>연락처</label>
+          <input id="h_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
+        </div>
+
+        <!-- 2. 기존 EMR 업체 정보 -->
+        <div class="hgroup">
+          <h3>2) 기존 EMR 업체 정보</h3>
+          <label>업체명</label>
+          <input id="h_emr_name" type="text" placeholder="예) ○○EMR" />
+          <label>담당자명</label>
+          <input id="h_emr_person" type="text" placeholder="예) 이매니저" />
+          <label>연락처</label>
+          <input id="h_emr_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
+          <label>EMR 업체 변경 가능 여부</label>
+          <select id="h_emr_switch">
+            <option value="">선택</option>
+            <option>가능</option>
+            <option>불가</option>
+            <option>검토 필요</option>
+          </select>
+        </div>
+
+        <!-- 3. 기존 Van 업체 정보 -->
+        <div class="hgroup">
+          <h3>3) 기존 Van 업체 정보</h3>
+          <label>업체명</label>
+          <input id="h_van_name" type="text" placeholder="예) 한국결제네트웍스" />
+          <label>계약기간</label>
+          <div class="grid-2">
+            <input id="h_van_contract_s" type="date" />
+            <input id="h_van_contract_e" type="date" />
+          </div>
+          <label>위약금(익월 말 기준)</label>
+          <input id="h_van_penalty" type="number" min="0" step="1" placeholder="천원 단위 예) 300" />
+          <div class="help">단위: 천원</div>
+        </div>
+
+        <!-- 4. 카드 단말기(리더기) 정보 -->
+        <div class="hgroup">
+          <h3>4) 카드 단말기(리더기) 정보</h3>
+          <label>단말기(리더기) 대수</label>
+          <input id="h_reader_count" type="number" min="0" step="1" placeholder="예) 3" />
+        </div>
+
+        <!-- 5. 전년도 카드매출(VAT 포함) -->
+        <div class="hgroup">
+          <h3>5) 전년도 카드매출(VAT 포함)</h3>
+          <label>100만원 이하 건 수(건)</label>
+          <input id="h_under_cnt" type="number" min="0" step="1" placeholder="예) 1200" />
+          <label>100만원 이하 매출 합계(백만)</label>
+          <input id="h_under_amt" type="number" min="0" step="1" placeholder="예) 450" />
+          <label>100만원 이상 건 수(건)</label>
+          <input id="h_over_cnt" type="number" min="0" step="1" placeholder="예) 150" />
+          <label>100만원 이상 매출 합계(백만)</label>
+          <input id="h_over_amt" type="number" min="0" step="1" placeholder="예) 320" />
+        </div>
       </div>
 
       <!-- 제출 영역 -->
       <div class="actions">
         <button id="btnSubmit" class="primary" type="button">제출</button>
-        <button id="btnDownload" class="ghost" type="button" title="백엔드 연결 전 임시 저장">CSV로 저장</button>
+        <button id="btnDownload" class="ghost" type="button">CSV로 저장</button>
         <button id="btnCopy" class="ghost" type="button">JSON 복사</button>
       </div>
 
@@ -120,23 +178,11 @@
       bizTypeEl.value=t;
       if(t==='식당'){foodSection.classList.remove('hide');hospitalSection.classList.add('hide')}
       else{hospitalSection.classList.remove('hide');foodSection.classList.add('hide')}
-      // 버튼 스타일
       [btnFood,btnHospital].forEach(b=>b.style.borderColor='#2b2b2b');
       (t==='식당'?btnFood:btnHospital).style.borderColor='var(--accent)';
     }
     btnFood.onclick=()=>setType('식당');
     btnHospital.onclick=()=>setType('병원');
-
-    // 병원 이미지 미리보기
-    const hImages = document.getElementById('h_images');
-    const imgPreview = document.getElementById('imgPreview');
-    hImages?.addEventListener('change',()=>{
-      imgPreview.innerHTML='';
-      [...hImages.files].slice(0,5).forEach(f=>{
-        const chip=document.createElement('div'); chip.className='chip'; chip.textContent=f.name;
-        imgPreview.appendChild(chip);
-      });
-    });
 
     // 데이터 수집
     function collect(){
@@ -154,23 +200,52 @@
         payload.전년도_카드매출_백만원=Number(document.getElementById('f_sales_amt').value||0);
         payload.전년도_카드매출_건수=Number(document.getElementById('f_sales_cnt').value||0);
       }else{
-        payload.질문지_이미지_파일명=[...hImages.files].map(f=>f.name);
+        // 병원
+        payload.병원정보={
+          업체명: document.getElementById('h_name').value.trim(),
+          사업자등록번호: document.getElementById('h_bizno').value.trim(),
+          담당자명: document.getElementById('h_person').value.trim(),
+          연락처: document.getElementById('h_phone').value.trim()
+        };
+        payload.EMR_업체정보={
+          업체명: document.getElementById('h_emr_name').value.trim(),
+          담당자명: document.getElementById('h_emr_person').value.trim(),
+          연락처: document.getElementById('h_emr_phone').value.trim(),
+          변경가능여부: document.getElementById('h_emr_switch').value
+        };
+        payload.VAN_업체정보={
+          업체명: document.getElementById('h_van_name').value.trim(),
+          계약시작: document.getElementById('h_van_contract_s').value,
+          계약종료: document.getElementById('h_van_contract_e').value,
+          위약금_천원: Number(document.getElementById('h_van_penalty').value||0)
+        };
+        payload.리더기정보={ 대수: Number(document.getElementById('h_reader_count').value||0) };
+        payload.전년도카드매출={
+          백만원이하_건수: Number(document.getElementById('h_under_cnt').value||0),
+          백만원이하_합계_백만: Number(document.getElementById('h_under_amt').value||0),
+          백만원이상_건수: Number(document.getElementById('h_over_cnt').value||0),
+          백만원이상_합계_백만: Number(document.getElementById('h_over_amt').value||0)
+        };
       }
       return payload;
     }
 
-    // 간단 검증
-    function validate(data){
-      if(data.업종==='식당'){
-        if(!data.업체명) return '업체명은 필수';
-        if(data.연락처 && !/^01[016789]-\d{3,4}-\d{4}$/.test(data.연락처)) return '연락처 형식 확인';
+    // 검증
+    function validate(d){
+      const phoneRe=/^01[016789]-\d{3,4}-\d{4}$/;
+      const bizRe=/^\d{3}-\d{2}-\d{5}$/;
+      if(d.업종==='식당'){
+        if(!d.업체명) return '업체명은 필수';
+        if(d.연락처 && !phoneRe.test(d.연락처)) return '연락처 형식 확인';
       }else{
-        if(!data.질문지_이미지_파일명 || data.질문지_이미지_파일명.length===0) return '이미지를 1장 이상 첨부';
+        if(!d.병원정보.업체명) return '병원 업체명은 필수';
+        if(d.병원정보.연락처 && !phoneRe.test(d.병원정보.연락처)) return '병원 연락처 형식 확인';
+        if(d.병원정보.사업자등록번호 && !bizRe.test(d.병원정보.사업자등록번호)) return '사업자등록번호 형식 확인';
       }
       return '';
     }
 
-    // 제출(백엔드 미연결: 콘솔에 출력)
+    // 제출(임시: 콘솔)
     const resultEl=document.getElementById('result');
     document.getElementById('btnSubmit').onclick=async()=>{
       const data=collect();
@@ -178,18 +253,25 @@
       if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
       console.log('제출 데이터:', data);
       resultEl.innerHTML='<span class="ok">제출 준비 완료. 현재는 로컬 저장/복사만 지원합니다.</span>';
-      // TODO: 백엔드 연결 시 여기에서 fetch POST 구현
-      // 예) await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      // 서버 연결 시 fetch POST 추가
     };
 
-    // CSV 다운로드
+    // CSV 저장
     document.getElementById('btnDownload').onclick=()=>{
       const d=collect(); const err=validate(d); if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
-      const keys=Object.keys(d);
-      const csv=[keys.join(','), keys.map(k=>JSON.stringify(d[k] ?? '')).join(',')].join('\n');
+      const flat=(obj,prefix='')=>{
+        return Object.entries(obj).reduce((acc,[k,v])=>{
+          const key=prefix?`${prefix}.${k}`:k;
+          if(v && typeof v==='object' && !Array.isArray(v)) Object.assign(acc,flat(v,key));
+          else acc[key]=v;
+          return acc;
+        },{});
+      };
+      const f=flat(d);
+      const keys=Object.keys(f);
+      const csv=[keys.join(','), keys.map(k=>JSON.stringify(f[k] ?? '')).join(',')].join('\n');
       const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
-      const a=document.createElement('a');
-      a.href=URL.createObjectURL(blob); a.download='van-intake.csv'; a.click(); URL.revokeObjectURL(a.href);
+      const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='van-intake.csv'; a.click(); URL.revokeObjectURL(a.href);
       resultEl.innerHTML='<span class="ok">CSV 저장 완료</span>';
     };
 
@@ -200,7 +282,7 @@
       resultEl.innerHTML='<span class="ok">JSON 복사 완료</span>';
     };
 
-    // 초기값
+    // 초기
     setType('식당');
   </script>
 </body>

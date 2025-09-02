@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>VAN 교체 견적 요청</title>
   <style>
-    :root{--bg:#0b0b0b;--card:#151515;--ink:#f5f5f5;--muted:#b9b9b9;--accent:#3aa0ff}
+    :root{--bg:#0b0b0b;--card:#151515;--ink:#f5f5f5;--muted:#b9b9b9;--accent:#3aa0ff;--danger:#ff6b6b}
     *{box-sizing:border-box}
     html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif}
     .wrap{max-width:720px;margin:0 auto;padding:20px}
@@ -16,8 +16,10 @@
     .title{font-size:18px;margin:0 0 8px}
     .row{display:flex;gap:10px;flex-wrap:wrap}
     label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+    label.required::after{content:" *";color:var(--danger)}
     input,select,button{width:100%;padding:14px 12px;border-radius:12px;border:1px solid #2b2b2b;background:#0f0f10;color:var(--ink);font-size:15px;outline:none}
     input::placeholder{color:#8d8d8d}
+    input.error{border-color:var(--danger)}
     .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
     .pill{display:inline-flex;gap:6px;background:#0f0f10;border:1px solid #2b2b2b;padding:6px 10px;border-radius:999px;align-items:center}
     .section{margin-top:8px}
@@ -49,56 +51,55 @@
     <div class="card">
       <h2 class="title">VAN 교체 잠재고객 입력 폼</h2>
 
-      <!-- 업종 선택 -->
       <label for="bizType">업종 선택</label>
       <div class="row" role="radiogroup" aria-label="업종 선택">
-        <button class="pill" type="button" data-type="식당" id="btn-food"><span>🍽️</span><span>식당</span></button>
-        <button class="pill" type="button" data-type="병원" id="btn-hospital"><span>🏥</span><span>병원</span></button>
+        <button class="pill" type="button" id="btn-food"><span>🍽️</span><span>식당</span></button>
+        <button class="pill" type="button" id="btn-hospital"><span>🏥</span><span>병원</span></button>
       </div>
       <input type="hidden" id="bizType" value="식당"/>
 
-      <!-- 식당 섹션 -->
+      <!-- 식당 -->
       <div id="foodSection" class="section">
         <div class="hgroup">
           <h3>1) 식당정보</h3>
-          <label>업체명</label><input id="r_name" type="text" />
-          <label>사업자등록번호</label><input id="r_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" pattern="^\\d{3}-\\d{2}-\\d{5}$" />
-          <div class="help">형식: 123-45-67890</div>
-          <label>담당자명</label><input id="r_person" type="text" />
-          <label>연락처</label><input id="r_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
+          <label class="required">업체명</label><input id="r_name" type="text" placeholder="예) 한국결제네트웍스 강남점" />
+          <label>사업자등록번호</label><input id="r_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" />
+          <div class="help">숫자만 입력해도 자동으로 하이픈을 붙입니다.</div>
+          <label class="required">담당자명</label><input id="r_person" type="text" placeholder="예) 홍길동" />
+          <label class="required">연락처</label><input id="r_phone" type="tel" inputmode="numeric" placeholder="010-1234-5678" />
         </div>
         <div class="hgroup">
           <h3>2) 기존 포스기 정보</h3>
-          <label>업체(프로그램) 명</label><input id="r_pos_name" type="text" />
+          <label>업체(프로그램) 명</label><input id="r_pos_name" type="text" placeholder="예) 오케이포스" />
           <label>계약기간</label>
           <div class="grid-2"><input id="r_contract_s" type="date" /><input id="r_contract_e" type="date" /></div>
           <label>위약금(익월 말 기준)</label><input id="r_penalty" type="number" min="0" step="1" placeholder="천원 단위" />
         </div>
         <div class="hgroup">
           <h3>3) 설치된 단말기 정보</h3>
-          <label>포스기 대수(메인포스, 오더포스 등)</label><input id="r_poscnt" type="number" min="0" step="1" />
+          <label>포스기 대수(메인포스, 오더포스 등)</label><input id="r_poscnt" type="number" min="0" step="1" placeholder="예) 2" />
         </div>
         <div class="hgroup">
           <h3>4) 전년도 카드매출(VAT 포함)</h3>
-          <label>전년도 기준 카드매출 총액(백만원)</label><input id="r_sales_amt" type="number" min="0" step="1" />
-          <label>전년도 기준 카드매출 건 수(건)</label><input id="r_sales_cnt" type="number" min="0" step="1" />
+          <label>전년도 기준 카드매출 총액(백만원)</label><input id="r_sales_amt" type="number" min="0" step="1" placeholder="예) 850" />
+          <label>전년도 기준 카드매출 건 수(건)</label><input id="r_sales_cnt" type="number" min="0" step="1" placeholder="예) 12450" />
         </div>
       </div>
 
-      <!-- 병원 섹션 -->
+      <!-- 병원 -->
       <div id="hospitalSection" class="section hide">
         <div class="hgroup">
           <h3>1) 병원정보</h3>
-          <label>업체명</label><input id="h_name" type="text" />
-          <label>사업자 등록 번호</label><input id="h_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" pattern="^\\d{3}-\\d{2}-\\d{5}$" />
-          <label>담당자명</label><input id="h_person" type="text" />
-          <label>연락처</label><input id="h_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
+          <label class="required">업체명</label><input id="h_name" type="text" placeholder="예) 한국의원" />
+          <label>사업자 등록 번호</label><input id="h_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" />
+          <label class="required">담당자명</label><input id="h_person" type="text" placeholder="예) 김원장" />
+          <label class="required">연락처</label><input id="h_phone" type="tel" inputmode="numeric" placeholder="010-1234-5678" />
         </div>
         <div class="hgroup">
           <h3>2) 기존 EMR 업체 정보</h3>
           <label>업체명</label><input id="h_emr_name" type="text" />
           <label>담당자명</label><input id="h_emr_person" type="text" />
-          <label>연락처</label><input id="h_emr_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
+          <label>연락처</label><input id="h_emr_phone" type="tel" inputmode="numeric" placeholder="010-1234-5678" />
           <label>EMR 업체 변경 가능 여부</label>
           <select id="h_emr_switch"><option value="">선택</option><option>가능</option><option>불가</option><option>검토 필요</option></select>
         </div>
@@ -110,7 +111,7 @@
         </div>
         <div class="hgroup">
           <h3>4) 카드 단말기(리더기) 정보</h3>
-          <label>단말기(리더기) 대수</label><input id="h_reader_count" type="number" min="0" step="1" />
+          <label>단말기(리더기) 대수</label><input id="h_reader_count" type="number" min="0" step="1" placeholder="예) 3" />
         </div>
         <div class="hgroup">
           <h3>5) 전년도 카드매출(VAT 포함)</h3>
@@ -121,27 +122,109 @@
         </div>
       </div>
 
-      <!-- 제출 -->
       <div class="actions">
         <button id="btnSubmit" class="primary" type="button">제출</button>
       </div>
       <div id="result" class="help" aria-live="polite" style="margin-top:10px"></div>
     </div>
 
-    <!-- FAQ 카드(이전과 동일) -->
+    <!-- FAQ -->
     <div class="card" style="margin-top:12px">
       <h2 class="faq-title">자주 묻는 질문(FAQ)</h2>
-      <div id="faq-food"> <!-- 식당 FAQ들 : 동일 --> </div>
-      <div id="faq-hospital" class="hide"> <!-- 병원 FAQ들 : 동일 --> </div>
+
+      <div id="faq-food">
+        <details><summary>VAN 교체 전체 절차는?</summary>
+          <div class="answer">상담 → 수수료 시뮬레이션 → 견적·계약 → 설치/세팅 → 정산 계좌 변경 → 1개월 모니터링. 평균 3~7일.</div>
+        </details>
+        <details><summary>POS는 그대로 두고 VAN만 바꿀 수 있나?</summary>
+          <div class="answer">대부분 가능. POS사 연동 방식만 확인하면 된다. 필요 시 POS사와 직접 조율.</div>
+        </details>
+        <details><summary>위약금이 있으면 전환이 어렵나?</summary>
+          <div class="answer">아니다. 잔여기간·위약금 대비 수수료 절감효과를 산출해 손익분기점을 제시한다.</div>
+        </details>
+        <details><summary>수수료는 무엇으로 결정되나?</summary>
+          <div class="answer">전년도 매출/건수, 업종, 단말기 수, 간편결제 비중 등. 입력값으로 시뮬레이션한다.</div>
+        </details>
+        <details><summary>정산 주기와 입금 시점은?</summary>
+          <div class="answer">기본 D+2 또는 주간정산. 기존 주기 유지 가능.</div>
+        </details>
+        <details><summary>설치는 영업 중단 없이 가능한가?</summary>
+          <div class="answer">가능. 포스 1대 기준 30~60분. 피크 타임 회피 스케줄로 진행.</div>
+        </details>
+        <details><summary>간편결제 이관과 신규 채널 추가는?</summary>
+          <div class="answer">가능. 카카오/네이버/제로페이 등 이관·신규 개통 지원.</div>
+        </details>
+        <details><summary>추가 비용은?</summary>
+          <div class="answer">기본 설치·세팅 무상. 특수 장비나 공사는 별도 협의.</div>
+        </details>
+        <details><summary>A/S는 누가 담당하나?</summary>
+          <div class="answer">한국결제솔루션 지역 기사와 협력 POS 대리점이 365일 원격·현장 지원.</div>
+        </details>
+      </div>
+
+      <div id="faq-hospital" class="hide">
+        <details><summary>병원 VAN 교체 절차는?</summary>
+          <div class="answer">현황 점검(EMR/수납흐름) → 수수료·정산 구조 설계 → EMR 연동 테스트 → 설치·검수 → 시나리오 점검 → 1개월 모니터링.</div>
+        </details>
+        <details><summary>EMR 연동 확인은?</summary>
+          <div class="answer">EMR 업체·연동 방식 확인 후, 필요 시 EMR사와 직접 협의해 키·설정 이관.</div>
+        </details>
+        <details><summary>보험/비급여·현금영수증 처리?</summary>
+          <div class="answer">동일하게 가능. 리더기·프린터 세팅을 EMR 워크플로우에 맞춰 구성.</div>
+        </details>
+        <details><summary>여러 창구의 리더기 대수 산정?</summary>
+          <div class="answer">동시 처리량과 피크 타임 기준 산정. 예비 1대 권장.</div>
+        </details>
+        <details><summary>정산·명세서 제공?</summary>
+          <div class="answer">D+2 또는 주간정산. 과/창구별 분리 리포트와 월별 명세서 이메일 자동 발송 가능.</div>
+        </details>
+        <details><summary>EMR 계약·데이터 영향?</summary>
+          <div class="answer">없음. VAN만 변경. EMR 설정값 일부 변경 필요 가능.</div>
+        </details>
+        <details><summary>보안과 환자정보 보호?</summary>
+          <div class="answer">카드정보는 단말에서 암호화. 환자정보는 EMR에만 저장. PCI-DSS 준수.</div>
+        </details>
+        <details><summary>위약금 있어도 교체?</summary>
+          <div class="answer">가능. 절감액 분석 후 최적 전환 시점 제안.</div>
+        </details>
+        <details><summary>유지보수·장애 대응?</summary>
+          <div class="answer">365일 콜센터·지역 엔지니어 지원. 리더기 교체 SLA 명시 가능.</div>
+        </details>
+      </div>
     </div>
 
     <footer>© 한국결제솔루션 VAN 파트너</footer>
   </div>
 
   <script>
-    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbzW7-3OsGHqQZa9acmE9V82DKX8kB22AoqsliERZFHqGUZcSd-0gxM4vPwVT2h2rQTTCg/exec";
+    // === 설정 ===
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyambgtelKpwU9p7yIX5TDsp9uBpLDUEIVQS5-6at0xRO2ncTJSls86YGw2HxuD-VyfZQ/exec";
 
-    // 업종 토글
+    // === 유틸: 숫자만 ===
+    const onlyDigits = s => (s||"").replace(/\D+/g,"");
+
+    // === 자동 하이픈 포맷터 ===
+    function formatPhone(raw){
+      const d = onlyDigits(raw).slice(0,11); // 최대 11자리
+      if(d.startsWith("02")){
+        if(d.length<=2) return d;
+        if(d.length<=5) return d.replace(/(\d{2})(\d+)/,"$1-$2");
+        if(d.length<=9) return d.replace(/(\d{2})(\d{3,4})(\d{0,4})/,"$1-$2-$3");
+        return d.replace(/(\d{2})(\d{4})(\d{4})/,"$1-$2-$3");
+      }else{
+        if(d.length<=3) return d;
+        if(d.length<=7) return d.replace(/(\d{3})(\d+)/,"$1-$2");
+        return d.replace(/(\d{3})(\d{3,4})(\d{0,4})/,"$1-$2-$3");
+      }
+    }
+    function formatBizNo(raw){
+      const d = onlyDigits(raw).slice(0,10); // 10자리
+      if(d.length<=3) return d;
+      if(d.length<=5) return d.replace(/(\d{3})(\d{0,2})/,"$1-$2");
+      return d.replace(/(\d{3})(\d{2})(\d{0,5})/,"$1-$2-$3");
+    }
+
+    // === 요소 참조 ===
     const bizTypeEl = document.getElementById('bizType');
     const foodSection = document.getElementById('foodSection');
     const hospitalSection = document.getElementById('hospitalSection');
@@ -149,7 +232,10 @@
     const btnHospital = document.getElementById('btn-hospital');
     const faqFood = document.getElementById('faq-food');
     const faqHospital = document.getElementById('faq-hospital');
+    const resultEl=document.getElementById('result');
+    const btn=document.getElementById('btnSubmit');
 
+    // 업종 토글
     function setType(t){
       bizTypeEl.value=t;
       const isFood = t==='식당';
@@ -163,6 +249,15 @@
     }
     btnFood.onclick=()=>setType('식당');
     btnHospital.onclick=()=>setType('병원');
+
+    // 자동 하이픈 바인딩
+    // 식당
+    r_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
+    r_bizno.addEventListener('input', e=>{ e.target.value = formatBizNo(e.target.value); });
+    // 병원
+    h_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
+    h_bizno.addEventListener('input', e=>{ e.target.value = formatBizNo(e.target.value); });
+    h_emr_phone.addEventListener('input', e=>{ e.target.value = formatPhone(e.target.value); });
 
     // 데이터 수집
     function collect(){
@@ -216,33 +311,33 @@
       return payload;
     }
 
+    // 검증(필수만)
     function validate(d){
-      const phoneRe=/^01[016789]-\d{3,4}-\d{4}$/;
-      const bizRe=/^\d{3}-\d{2}-\d{5}$/;
+      function mark(el, bad){ el.classList.toggle('error', !!bad); }
       if(d.업종==='식당'){
-        const s=d.식당정보;
-        if(!s.업체명) return '식당 업체명은 필수';
-        if(s.연락처 && !phoneRe.test(s.연락처)) return '식당 연락처 형식 확인';
-        if(s.사업자등록번호 && !bizRe.test(s.사업자등록번호)) return '사업자등록번호 형식 확인';
+        mark(r_name, !d.식당정보.업체명);
+        mark(r_person, !d.식당정보.담당자명);
+        mark(r_phone, !d.식당정보.연락처);
+        if(!d.식당정보.업체명) return '식당 업체명은 필수';
+        if(!d.식당정보.담당자명) return '식당 담당자명은 필수';
+        if(!d.식당정보.연락처) return '식당 연락처는 필수';
       }else{
-        const h=d.병원정보;
-        if(!h.업체명) return '병원 업체명은 필수';
-        if(h.연락처 && !phoneRe.test(h.연락처)) return '병원 연락처 형식 확인';
-        if(h.사업자등록번호 && !bizRe.test(h.사업자등록번호)) return '사업자등록번호 형식 확인';
+        mark(h_name, !d.병원정보.업체명);
+        mark(h_person, !d.병원정보.담당자명);
+        mark(h_phone, !d.병원정보.연락처);
+        if(!d.병원정보.업체명) return '병원 업체명은 필수';
+        if(!d.병원정보.담당자명) return '병원 담당자명은 필수';
+        if(!d.병원정보.연락처) return '병원 연락처는 필수';
       }
       return '';
     }
 
-    const resultEl=document.getElementById('result');
-    const btn=document.getElementById('btnSubmit');
-
-    btn.onclick=async()=>{
+    // 제출
+    const submit = async ()=>{
       const data=collect();
       const err=validate(data);
       if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
       btn.disabled=true; resultEl.innerHTML='<span class="spinner"></span>제출 중...';
-
-      // 1차: CORS 허용이면 정상 JSON 처리
       try{
         const res = await fetch(WEB_APP_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)});
         const json = await res.json();
@@ -250,9 +345,7 @@
           resultEl.innerHTML='<span class="ok">제출 완료. 1주일 내 연락드리겠습니다.</span>';
           btn.disabled=false; return;
         }
-      }catch(_){/* fallthrough */ }
-
-      // 2차: CORS 이슈 대비(opaque). 응답은 못 읽지만 전송은 됨.
+      }catch(_){}
       try{
         await fetch(WEB_APP_URL, {method:'POST', mode:'no-cors', body: JSON.stringify(data)});
         resultEl.innerHTML='<span class="ok">제출 완료(확인). 시트에서 기록 여부 확인하세요.</span>';
@@ -262,7 +355,9 @@
         btn.disabled=false;
       }
     };
+    btn.onclick=submit;
 
+    // 초기
     setType('식당');
   </script>
 </body>

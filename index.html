@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>VAN 교체 견적 요청</title>
+  <style>
+    :root{--bg:#0b0b0b;--card:#151515;--ink:#f5f5f5;--muted:#b9b9b9;--accent:#3aa0ff;--ok:#18c37e;--err:#ff5a5a}
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Apple SD Gothic Neo,Noto Sans KR,Malgun Gothic,sans-serif}
+    .wrap{max-width:720px;margin:0 auto;padding:20px}
+    .banner{background:linear-gradient(180deg,#1f2937,#111827);border:1px solid #2a2a2a;border-radius:16px;padding:16px 14px;margin-bottom:14px}
+    .banner strong{display:block;font-size:15px;line-height:1.4}
+    .banner .small{color:var(--muted);font-size:12px;margin-top:8px}
+    .card{background:var(--card);border:1px solid #2a2a2a;border-radius:16px;padding:16px}
+    .title{font-size:18px;margin:0 0 8px}
+    .row{display:flex;gap:10px;flex-wrap:wrap}
+    label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}
+    input,select,button,textarea{width:100%;padding:14px 12px;border-radius:12px;border:1px solid #2b2b2b;background:#0f0f10;color:var(--ink);font-size:15px;outline:none}
+    input::placeholder,textarea::placeholder{color:#8d8d8d}
+    input[type="date"]{padding:12px}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .help{font-size:12px;color:#8a8a8a;margin-top:6px}
+    .pill{display:inline-flex;gap:6px;background:#0f0f10;border:1px solid #2b2b2b;padding:6px 10px;border-radius:999px;align-items:center}
+    .section{margin-top:8px}
+    .hide{display:none}
+    .actions{display:flex;gap:10px;margin-top:16px}
+    .primary{background:var(--accent);border:1px solid #348fe3;font-weight:600}
+    .ghost{background:#0f0f10;border:1px dashed #3a3a3a}
+    .ok{color:#c7ffea}
+    .err{color:#ffb6b6}
+    .preview{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+    .chip{font-size:12px;border:1px solid #2b2b2b;background:#0f0f10;border-radius:999px;padding:6px 10px}
+    footer{margin:28px 0 8px;color:#7b7b7b;font-size:12px;text-align:center}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="banner">
+      <strong>아래 정보를 입력 해 주시면 견적 산출 후 일주일 내로 연락 드리겠습니다.</strong>
+      <div class="small">문의 : 한국결제솔루션 배준철 대표 010-4180-8867</div>
+    </div>
+
+    <div class="card">
+      <h2 class="title">VAN 교체 잠재고객 입력 폼</h2>
+
+      <!-- 업종 선택 -->
+      <label for="bizType">업종 선택</label>
+      <div class="row" role="radiogroup" aria-label="업종 선택">
+        <button class="pill" type="button" data-type="식당" id="btn-food"><span>🍽️</span><span>식당</span></button>
+        <button class="pill" type="button" data-type="병원" id="btn-hospital"><span>🏥</span><span>병원</span></button>
+      </div>
+      <input type="hidden" id="bizType" value="식당"/>
+
+      <!-- 식당 섹션 -->
+      <div id="foodSection" class="section">
+        <label>업체명</label>
+        <input id="f_name" type="text" placeholder="예) 한국결제네트웍스 강남점" required />
+        <label>담당자명</label>
+        <input id="f_person" type="text" placeholder="예) 홍길동" />
+        <label>연락처</label>
+        <input id="f_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\d{3,4}-\d{4}$" />
+        <div class="help">형식 예: 010-1234-5678</div>
+
+        <label>기존 사용 중인 포스프로그램은?</label>
+        <input id="f_pos" type="text" placeholder="예) 오케이포스" />
+
+        <label>기존 포스 업체와 계약기간</label>
+        <div class="grid-2">
+          <input id="f_contract_s" type="date" />
+          <input id="f_contract_e" type="date" />
+        </div>
+
+        <label>위약금(익월 말 기준)</label>
+        <div class="row">
+          <input id="f_penalty" type="number" min="0" step="1" placeholder="천원 단위 예) 300" />
+        </div>
+        <div class="help">단위: 천원</div>
+
+        <label>포스기 대수(메인포스, 오더포스 등)</label>
+        <input id="f_poscnt" type="number" min="0" step="1" placeholder="예) 2" />
+
+        <label>전년도 기준 카드매출 총액</label>
+        <input id="f_sales_amt" type="number" min="0" step="1" placeholder="백만원 단위 예) 850" />
+        <div class="help">단위: 백만원</div>
+
+        <label>전년도 기준 카드매출 건 수</label>
+        <input id="f_sales_cnt" type="number" min="0" step="1" placeholder="예) 12450" />
+      </div>
+
+      <!-- 병원 섹션 -->
+      <div id="hospitalSection" class="section hide">
+        <label>질문지 이미지 첨부</label>
+        <input id="h_images" type="file" accept="image/*" multiple />
+        <div id="imgPreview" class="preview"></div>
+        <div class="help">이미지 1~5장 권장. JPG/PNG.</div>
+      </div>
+
+      <!-- 제출 영역 -->
+      <div class="actions">
+        <button id="btnSubmit" class="primary" type="button">제출</button>
+        <button id="btnDownload" class="ghost" type="button" title="백엔드 연결 전 임시 저장">CSV로 저장</button>
+        <button id="btnCopy" class="ghost" type="button">JSON 복사</button>
+      </div>
+
+      <div id="result" class="help" aria-live="polite" style="margin-top:10px"></div>
+    </div>
+
+    <footer>© 한국결제솔루션 VAN 파트너</footer>
+  </div>
+
+  <script>
+    // 업종 토글
+    const bizTypeEl = document.getElementById('bizType');
+    const foodSection = document.getElementById('foodSection');
+    const hospitalSection = document.getElementById('hospitalSection');
+    const btnFood = document.getElementById('btn-food');
+    const btnHospital = document.getElementById('btn-hospital');
+    function setType(t){
+      bizTypeEl.value=t;
+      if(t==='식당'){foodSection.classList.remove('hide');hospitalSection.classList.add('hide')}
+      else{hospitalSection.classList.remove('hide');foodSection.classList.add('hide')}
+      // 버튼 스타일
+      [btnFood,btnHospital].forEach(b=>b.style.borderColor='#2b2b2b');
+      (t==='식당'?btnFood:btnHospital).style.borderColor='var(--accent)';
+    }
+    btnFood.onclick=()=>setType('식당');
+    btnHospital.onclick=()=>setType('병원');
+
+    // 병원 이미지 미리보기
+    const hImages = document.getElementById('h_images');
+    const imgPreview = document.getElementById('imgPreview');
+    hImages?.addEventListener('change',()=>{
+      imgPreview.innerHTML='';
+      [...hImages.files].slice(0,5).forEach(f=>{
+        const chip=document.createElement('div'); chip.className='chip'; chip.textContent=f.name;
+        imgPreview.appendChild(chip);
+      });
+    });
+
+    // 데이터 수집
+    function collect(){
+      const type=bizTypeEl.value;
+      const payload={업종:type, 제출시각:new Date().toISOString()};
+      if(type==='식당'){
+        payload.업체명=document.getElementById('f_name').value.trim();
+        payload.담당자명=document.getElementById('f_person').value.trim();
+        payload.연락처=document.getElementById('f_phone').value.trim();
+        payload.포스프로그램=document.getElementById('f_pos').value.trim();
+        payload.계약시작=document.getElementById('f_contract_s').value;
+        payload.계약종료=document.getElementById('f_contract_e').value;
+        payload.위약금_천원=Number(document.getElementById('f_penalty').value||0);
+        payload.포스기_대수=Number(document.getElementById('f_poscnt').value||0);
+        payload.전년도_카드매출_백만원=Number(document.getElementById('f_sales_amt').value||0);
+        payload.전년도_카드매출_건수=Number(document.getElementById('f_sales_cnt').value||0);
+      }else{
+        payload.질문지_이미지_파일명=[...hImages.files].map(f=>f.name);
+      }
+      return payload;
+    }
+
+    // 간단 검증
+    function validate(data){
+      if(data.업종==='식당'){
+        if(!data.업체명) return '업체명은 필수';
+        if(data.연락처 && !/^01[016789]-\d{3,4}-\d{4}$/.test(data.연락처)) return '연락처 형식 확인';
+      }else{
+        if(!data.질문지_이미지_파일명 || data.질문지_이미지_파일명.length===0) return '이미지를 1장 이상 첨부';
+      }
+      return '';
+    }
+
+    // 제출(백엔드 미연결: 콘솔에 출력)
+    const resultEl=document.getElementById('result');
+    document.getElementById('btnSubmit').onclick=async()=>{
+      const data=collect();
+      const err=validate(data);
+      if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
+      console.log('제출 데이터:', data);
+      resultEl.innerHTML='<span class="ok">제출 준비 완료. 현재는 로컬 저장/복사만 지원합니다.</span>';
+      // TODO: 백엔드 연결 시 여기에서 fetch POST 구현
+      // 예) await fetch('/api/submit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+    };
+
+    // CSV 다운로드
+    document.getElementById('btnDownload').onclick=()=>{
+      const d=collect(); const err=validate(d); if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
+      const keys=Object.keys(d);
+      const csv=[keys.join(','), keys.map(k=>JSON.stringify(d[k] ?? '')).join(',')].join('\n');
+      const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});
+      const a=document.createElement('a');
+      a.href=URL.createObjectURL(blob); a.download='van-intake.csv'; a.click(); URL.revokeObjectURL(a.href);
+      resultEl.innerHTML='<span class="ok">CSV 저장 완료</span>';
+    };
+
+    // JSON 복사
+    document.getElementById('btnCopy').onclick=async()=>{
+      const d=collect(); const err=validate(d); if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
+      await navigator.clipboard.writeText(JSON.stringify(d,null,2));
+      resultEl.innerHTML='<span class="ok">JSON 복사 완료</span>';
+    };
+
+    // 초기값
+    setType('식당');
+  </script>
+</body>
+</html>

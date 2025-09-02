@@ -30,6 +30,13 @@
     footer{margin:28px 0 8px;color:#7b7b7b;font-size:12px;text-align:center}
     .hgroup{margin-top:18px;border-top:1px dashed #2a2a2a;padding-top:12px}
     .hgroup h3{margin:0 0 6px;font-size:15px}
+    /* FAQ */
+    .faq-title{margin:18px 0 8px;font-size:16px}
+    details{border:1px solid #2b2b2b;border-radius:12px;background:#0f0f10;margin:8px 0}
+    summary{cursor:pointer;padding:12px 14px;font-size:14px;color:#e6e6e6;list-style:none}
+    details[open] summary{border-bottom:1px solid #232323}
+    details .answer{padding:12px 14px;color:#bdbdbd;font-size:13px;line-height:1.55}
+    summary::-webkit-details-marker{display:none}
   </style>
 </head>
 <body>
@@ -50,49 +57,63 @@
       </div>
       <input type="hidden" id="bizType" value="식당"/>
 
-      <!-- 식당 섹션(기존 유지) -->
+      <!-- 식당 섹션(교체 버전) -->
       <div id="foodSection" class="section">
-        <label>업체명</label>
-        <input id="f_name" type="text" placeholder="예) 한국결제네트웍스 강남점" required />
-        <label>담당자명</label>
-        <input id="f_person" type="text" placeholder="예) 홍길동" />
-        <label>연락처</label>
-        <input id="f_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
-        <div class="help">형식 예: 010-1234-5678</div>
-
-        <label>기존 사용 중인 포스프로그램은?</label>
-        <input id="f_pos" type="text" placeholder="예) 오케이포스" />
-
-        <label>기존 포스 업체와 계약기간</label>
-        <div class="grid-2">
-          <input id="f_contract_s" type="date" />
-          <input id="f_contract_e" type="date" />
+        <!-- 1. 식당정보 -->
+        <div class="hgroup">
+          <h3>1) 식당정보</h3>
+          <label>업체명</label>
+          <input id="r_name" type="text" placeholder="예) 한국결제네트웍스 강남점" />
+          <label>사업자등록번호</label>
+          <input id="r_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" pattern="^\\d{3}-\\d{2}-\\d{5}$" />
+          <div class="help">형식: 123-45-67890</div>
+          <label>담당자명</label>
+          <input id="r_person" type="text" placeholder="예) 홍길동" />
+          <label>연락처</label>
+          <input id="r_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
+          <div class="help">형식 예: 010-1234-5678</div>
         </div>
 
-        <label>위약금(익월 말 기준)</label>
-        <input id="f_penalty" type="number" min="0" step="1" placeholder="천원 단위 예) 300" />
-        <div class="help">단위: 천원</div>
+        <!-- 2. 기존 포스기 정보 -->
+        <div class="hgroup">
+          <h3>2) 기존 포스기 정보</h3>
+          <label>업체(프로그램) 명</label>
+          <input id="r_pos_name" type="text" placeholder="예) 오케이포스" />
+          <label>계약기간</label>
+          <div class="grid-2">
+            <input id="r_contract_s" type="date" />
+            <input id="r_contract_e" type="date" />
+          </div>
+          <label>위약금(익월 말 기준)</label>
+          <input id="r_penalty" type="number" min="0" step="1" placeholder="천원 단위 예) 300" />
+          <div class="help">단위: 천원</div>
+        </div>
 
-        <label>포스기 대수(메인포스, 오더포스 등)</label>
-        <input id="f_poscnt" type="number" min="0" step="1" placeholder="예) 2" />
+        <!-- 3. 설치된 단말기 정보 -->
+        <div class="hgroup">
+          <h3>3) 설치된 단말기 정보</h3>
+          <label>포스기 대수(메인포스, 오더포스 등)</label>
+          <input id="r_poscnt" type="number" min="0" step="1" placeholder="예) 2" />
+        </div>
 
-        <label>전년도 기준 카드매출 총액</label>
-        <input id="f_sales_amt" type="number" min="0" step="1" placeholder="백만원 단위 예) 850" />
-        <div class="help">단위: 백만원</div>
-
-        <label>전년도 기준 카드매출 건 수</label>
-        <input id="f_sales_cnt" type="number" min="0" step="1" placeholder="예) 12450" />
+        <!-- 4. 전년도 카드매출(VAT 포함) -->
+        <div class="hgroup">
+          <h3>4) 전년도 카드매출(VAT 포함)</h3>
+          <label>전년도 기준 카드매출 총액(백만원)</label>
+          <input id="r_sales_amt" type="number" min="0" step="1" placeholder="예) 850" />
+          <label>전년도 기준 카드매출 건 수(건)</label>
+          <input id="r_sales_cnt" type="number" min="0" step="1" placeholder="예) 12450" />
+        </div>
       </div>
 
-      <!-- 병원 섹션(신규 구성) -->
+      <!-- 병원 섹션(기존 유지) -->
       <div id="hospitalSection" class="section hide">
-        <!-- 1. 병원정보 -->
         <div class="hgroup">
           <h3>1) 병원정보</h3>
           <label>업체명</label>
           <input id="h_name" type="text" placeholder="예) 한국의원" />
           <label>사업자 등록 번호</label>
-          <input id="h_bizno" type="text" inputmode="numeric" placeholder="예) 123-45-67890" pattern="^\\d{3}-\\d{2}-\\d{5}$" />
+          <input id="h_bizno" type="text" inputmode="numeric" placeholder="123-45-67890" pattern="^\\d{3}-\\d{2}-\\d{5}$" />
           <div class="help">형식: 123-45-67890</div>
           <label>담당자명</label>
           <input id="h_person" type="text" placeholder="예) 김원장" />
@@ -100,7 +121,6 @@
           <input id="h_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
         </div>
 
-        <!-- 2. 기존 EMR 업체 정보 -->
         <div class="hgroup">
           <h3>2) 기존 EMR 업체 정보</h3>
           <label>업체명</label>
@@ -111,14 +131,10 @@
           <input id="h_emr_phone" type="tel" inputmode="numeric" placeholder="010-0000-0000" pattern="^01[016789]-\\d{3,4}-\\d{4}$" />
           <label>EMR 업체 변경 가능 여부</label>
           <select id="h_emr_switch">
-            <option value="">선택</option>
-            <option>가능</option>
-            <option>불가</option>
-            <option>검토 필요</option>
+            <option value="">선택</option><option>가능</option><option>불가</option><option>검토 필요</option>
           </select>
         </div>
 
-        <!-- 3. 기존 Van 업체 정보 -->
         <div class="hgroup">
           <h3>3) 기존 Van 업체 정보</h3>
           <label>업체명</label>
@@ -133,14 +149,12 @@
           <div class="help">단위: 천원</div>
         </div>
 
-        <!-- 4. 카드 단말기(리더기) 정보 -->
         <div class="hgroup">
           <h3>4) 카드 단말기(리더기) 정보</h3>
           <label>단말기(리더기) 대수</label>
           <input id="h_reader_count" type="number" min="0" step="1" placeholder="예) 3" />
         </div>
 
-        <!-- 5. 전년도 카드매출(VAT 포함) -->
         <div class="hgroup">
           <h3>5) 전년도 카드매출(VAT 포함)</h3>
           <label>100만원 이하 건 수(건)</label>
@@ -164,6 +178,73 @@
       <div id="result" class="help" aria-live="polite" style="margin-top:10px"></div>
     </div>
 
+    <!-- FAQ 카드 -->
+    <div class="card" style="margin-top:12px">
+      <h2 class="faq-title">자주 묻는 질문(FAQ)</h2>
+
+      <!-- 식당 FAQ -->
+      <div id="faq-food">
+        <details><summary>VAN 교체 전체 절차는?</summary>
+          <div class="answer">상담 → 수수료 시뮬레이션 → 견적·계약 → 설치/세팅 → 정산 계좌 변경 → 1개월 모니터링. 평균 3~7일.</div>
+        </details>
+        <details><summary>POS는 그대로 두고 VAN만 바꿀 수 있나?</summary>
+          <div class="answer">대부분 가능. POS사 연동 방식만 확인하면 된다. 필요 시 POS사와 직접 조율.</div>
+        </details>
+        <details><summary>위약금이 있으면 전환이 어렵나?</summary>
+          <div class="answer">아니다. 잔여기간·위약금 대비 수수료 절감효과를 산출해 손익분기점을 제시한다.</div>
+        </details>
+        <details><summary>수수료는 무엇으로 결정되나?</summary>
+          <div class="answer">전년도 매출/건수, 업종, 단말기 수, 간편결제 비중 등. 입력값으로 시뮬레이션한다.</div>
+        </details>
+        <details><summary>정산 주기와 입금 시점은?</summary>
+          <div class="answer">기본 D+2 또는 주간정산. 기존 주기 유지 가능.</div>
+        </details>
+        <details><summary>설치는 영업 중단 없이 가능한가?</summary>
+          <div class="answer">가능. 포스 1대 기준 30~60분. 피크 타임 회피 스케줄로 진행.</div>
+        </details>
+        <details><summary>간편결제 이관과 신규 채널 추가는?</summary>
+          <div class="answer">가능. 카카오/네이버/제로페이 등 이관·신규 개통 지원.</div>
+        </details>
+        <details><summary>추가 비용은?</summary>
+          <div class="answer">기본 설치·세팅 무상. 특수 장비나 공사는 별도 협의.</div>
+        </details>
+        <details><summary>A/S는 누가 담당하나?</summary>
+          <div class="answer">한국결제솔루션 지역 기사와 협력 POS 대리점이 365일 원격·현장 지원.</div>
+        </details>
+      </div>
+
+      <!-- 병원 FAQ -->
+      <div id="faq-hospital" class="hide">
+        <details><summary>병원 VAN 교체 절차는?</summary>
+          <div class="answer">현황 점검(EMR/수납흐름) → 수수료·정산 구조 설계 → EMR 연동 테스트 → 설치·검수 → 시나리오 점검 → 1개월 모니터링.</div>
+        </details>
+        <details><summary>EMR 연동 확인은?</summary>
+          <div class="answer">EMR 업체·연동 방식 확인 후, 필요 시 EMR사와 직접 협의해 키·설정 이관.</div>
+        </details>
+        <details><summary>보험/비급여·현금영수증 처리?</summary>
+          <div class="answer">동일하게 가능. 리더기·프린터 세팅을 EMR 워크플로우에 맞춰 구성.</div>
+        </details>
+        <details><summary>여러 창구의 리더기 대수 산정?</summary>
+          <div class="answer">동시 처리량과 피크 타임 기준 산정. 예비 1대 권장.</div>
+        </details>
+        <details><summary>정산·명세서 제공?</summary>
+          <div class="answer">D+2 또는 주간정산. 과/창구별 분리 리포트와 월별 명세서 이메일 자동 발송 가능.</div>
+        </details>
+        <details><summary>EMR 계약·데이터 영향?</summary>
+          <div class="answer">없음. VAN만 변경. EMR 설정값 일부 변경 필요 가능.</div>
+        </details>
+        <details><summary>보안과 환자정보 보호?</summary>
+          <div class="answer">카드정보는 단말에서 암호화. 환자정보는 EMR에만 저장. PCI-DSS 준수.</div>
+        </details>
+        <details><summary>위약금 있어도 교체?</summary>
+          <div class="answer">가능. 절감액 분석 후 최적 전환 시점 제안.</div>
+        </details>
+        <details><summary>유지보수·장애 대응?</summary>
+          <div class="answer">365일 콜센터·지역 엔지니어 지원. 리더기 교체 SLA 명시 가능.</div>
+        </details>
+      </div>
+    </div>
+
     <footer>© 한국결제솔루션 VAN 파트너</footer>
   </div>
 
@@ -174,12 +255,19 @@
     const hospitalSection = document.getElementById('hospitalSection');
     const btnFood = document.getElementById('btn-food');
     const btnHospital = document.getElementById('btn-hospital');
+    const faqFood = document.getElementById('faq-food');
+    const faqHospital = document.getElementById('faq-hospital');
+
     function setType(t){
       bizTypeEl.value=t;
-      if(t==='식당'){foodSection.classList.remove('hide');hospitalSection.classList.add('hide')}
-      else{hospitalSection.classList.remove('hide');foodSection.classList.add('hide')}
+      const isFood = t==='식당';
+      foodSection.classList.toggle('hide', !isFood);
+      hospitalSection.classList.toggle('hide', isFood);
+      faqFood.classList.toggle('hide', !isFood);
+      faqHospital.classList.toggle('hide', isFood);
       [btnFood,btnHospital].forEach(b=>b.style.borderColor='#2b2b2b');
-      (t==='식당'?btnFood:btnHospital).style.borderColor='var(--accent)';
+      (isFood?btnFood:btnHospital).style.borderColor='var(--accent)';
+      document.querySelectorAll('details').forEach(d=>d.open=false);
     }
     btnFood.onclick=()=>setType('식당');
     btnHospital.onclick=()=>setType('병원');
@@ -189,18 +277,24 @@
       const type=bizTypeEl.value;
       const payload={업종:type, 제출시각:new Date().toISOString()};
       if(type==='식당'){
-        payload.업체명=document.getElementById('f_name').value.trim();
-        payload.담당자명=document.getElementById('f_person').value.trim();
-        payload.연락처=document.getElementById('f_phone').value.trim();
-        payload.포스프로그램=document.getElementById('f_pos').value.trim();
-        payload.계약시작=document.getElementById('f_contract_s').value;
-        payload.계약종료=document.getElementById('f_contract_e').value;
-        payload.위약금_천원=Number(document.getElementById('f_penalty').value||0);
-        payload.포스기_대수=Number(document.getElementById('f_poscnt').value||0);
-        payload.전년도_카드매출_백만원=Number(document.getElementById('f_sales_amt').value||0);
-        payload.전년도_카드매출_건수=Number(document.getElementById('f_sales_cnt').value||0);
+        payload.식당정보={
+          업체명: document.getElementById('r_name').value.trim(),
+          사업자등록번호: document.getElementById('r_bizno').value.trim(),
+          담당자명: document.getElementById('r_person').value.trim(),
+          연락처: document.getElementById('r_phone').value.trim()
+        };
+        payload.기존포스정보={
+          프로그램명: document.getElementById('r_pos_name').value.trim(),
+          계약시작: document.getElementById('r_contract_s').value,
+          계약종료: document.getElementById('r_contract_e').value,
+          위약금_천원: Number(document.getElementById('r_penalty').value||0)
+        };
+        payload.단말기정보={ 포스기대수: Number(document.getElementById('r_poscnt').value||0) };
+        payload.전년도카드매출={
+          총액_백만원: Number(document.getElementById('r_sales_amt').value||0),
+          건수_건: Number(document.getElementById('r_sales_cnt').value||0)
+        };
       }else{
-        // 병원
         payload.병원정보={
           업체명: document.getElementById('h_name').value.trim(),
           사업자등록번호: document.getElementById('h_bizno').value.trim(),
@@ -235,12 +329,15 @@
       const phoneRe=/^01[016789]-\d{3,4}-\d{4}$/;
       const bizRe=/^\d{3}-\d{2}-\d{5}$/;
       if(d.업종==='식당'){
-        if(!d.업체명) return '업체명은 필수';
-        if(d.연락처 && !phoneRe.test(d.연락처)) return '연락처 형식 확인';
+        const s=d.식당정보;
+        if(!s.업체명) return '식당 업체명은 필수';
+        if(s.연락처 && !phoneRe.test(s.연락처)) return '식당 연락처 형식 확인';
+        if(s.사업자등록번호 && !bizRe.test(s.사업자등록번호)) return '사업자등록번호 형식 확인';
       }else{
-        if(!d.병원정보.업체명) return '병원 업체명은 필수';
-        if(d.병원정보.연락처 && !phoneRe.test(d.병원정보.연락처)) return '병원 연락처 형식 확인';
-        if(d.병원정보.사업자등록번호 && !bizRe.test(d.병원정보.사업자등록번호)) return '사업자등록번호 형식 확인';
+        const h=d.병원정보;
+        if(!h.업체명) return '병원 업체명은 필수';
+        if(h.연락처 && !phoneRe.test(h.연락처)) return '병원 연락처 형식 확인';
+        if(h.사업자등록번호 && !bizRe.test(h.사업자등록번호)) return '사업자등록번호 형식 확인';
       }
       return '';
     }
@@ -253,7 +350,7 @@
       if(err){resultEl.innerHTML='<span class="err">오류: '+err+'</span>';return;}
       console.log('제출 데이터:', data);
       resultEl.innerHTML='<span class="ok">제출 준비 완료. 현재는 로컬 저장/복사만 지원합니다.</span>';
-      // 서버 연결 시 fetch POST 추가
+      // TODO: 서버 연결 시 fetch POST 추가
     };
 
     // CSV 저장
